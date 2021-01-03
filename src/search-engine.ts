@@ -112,6 +112,8 @@ export class SkillSearchEngine extends SearchEngine {
 
         if (!criteria)
           rank = 0;
+        else
+          rank += 10;
       }
 
       return [dollinfo, rank];
