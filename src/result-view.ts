@@ -79,7 +79,14 @@ export class ResultView {
     let tr = document.createElement('tr');
 
     tr.appendChild(this.createTD('' + dollinfo.id));
-    tr.appendChild(this.createTD(dollinfo.name));
+
+    // 이름을 누르면 소전DB로 이동한다.
+    let td = this.createTD(dollinfo.name);
+    td.onclick = () => {
+      window.open(`https://gfl.zzzzz.kr/doll.php?id=${dollinfo.id}&lang=ko`);
+    };
+    tr.appendChild(td);
+    
     tr.appendChild(this.createTD(dollinfo.type));
     tr.appendChild(this.createTD(this.createStars(dollinfo.grade)));
     tr.appendChild(this.createTD(this.createTime(dollinfo)));
