@@ -1,0 +1,16 @@
+table {
+  font-size: 11px;
+  text-align: center;
+}
+
+.tr-header {
+  background-color: #FFB210
+}
+
+.tr-even {
+  background-color: #EAEAEA
+}
+
+.tr-odd {
+  background-color: #E0E0E0
+}

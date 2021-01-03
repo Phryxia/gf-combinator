@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='ko'>
+  <head>
+    <title>소녀전선 인형 검색엔진 - Ak-Alfa ver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='style.css'>
+  </head>
+  <body>
+    <h1>소녀전선 인형 검색엔진 - Ak-Alfa ver</h1>
+    <div>
+      <h2>진형버프 검색</h2>
+      <span>수혜를 받고자 하는 병종과 스탯 이름을 입력 (ex: RF 화력 사속)</span>
+      <h2>스킬 검색</h2>
+      <span>병종과 스킬 이름이나 특성, 스탯 이름 등을 입력 (ex: HG 일반버프 자신)</span>
+      <h2>키워드 일람</h2>
+      <h3>병종</h3>
+      <span>AR, SMG, RF, HG, MG, SG, ALL</span>
+      <h3>스탯</h3>
+      <span>화력, 회피, 명중, 사속, 치명, 이동속도, 스킬쿨감, 장탄, 장전단축, 장갑</span><br>
+      <span>피드백: xahhaepica@gmail.com</span>
+    </div>
+    <div>
+      <select id='search-mode'>
+        <option value='0' selected>진형버프 검색</option>
+        <option value='1'>스킬 검색</option>
+      </select>
+      <input type='text' id='search-keyword' placeholder='키워드를 입력하세요' />
+    </div>
+    <div>
+      <table id='result'>
+      </table>
+    </div>
+    
+    <!-- 스크립트 -->
+    <script src='bundle.js'></script>
+  </body>
+</html>
