@@ -24,7 +24,7 @@ const RESULT_CONTROLLER = new ResultController();
 const RESULT_VIEW = new ResultView();
 
 // 검색창 반응
-document.getElementById('search-keyword').onchange = (evt: InputEvent) => {
+document.getElementById('search-keyword').onkeyup = (evt: KeyboardEvent) => {
   // 키워드 분해
   let keywords_text = (evt.target as HTMLInputElement).value;
   keywords_text = keywords_text ? keywords_text : '';
