@@ -5,25 +5,25 @@ export class ResultView {
   private header: string[][] = [
     ['번호', 'id'], ['총기명', 'name'], 
     ['병종', 'type'], ['레어도', 'grade'], 
-    ['제작시간', 'time'], ['중형한정', 'heavy_only'],
+    ['제조시간', 'time'], ['중형\n한정', 'heavy_only'],
     ['체력', 'char_health'], ['화력', 'char_damage'], 
     ['회피', 'char_evasion'], ['명중', 'char_accuracy'],
     ['사속', 'char_rof'], ['기동력', 'char_move_speed'], 
     ['치명타율', 'char_critical'], ['장탄', 'char_clip_size'], 
     ['장갑', 'char_armor'], ['진형', 'tile'], 
-    ['버프대상', 'buff_targets'], ['화력버프', 'buff_damage'],
-    ['회피버프', 'buff_evasion'], ['명중버프', 'buff_accuracy'],
-    ['사속버프', 'buff_rof'], ['치명버프', 'buff_critical'], 
-    ['스킬쿨감', 'buff_ctime'], ['장갑버프', 'buff_armor'],
+    ['버프대상', 'buff_targets'], ['화력\n버프', 'buff_damage'],
+    ['회피\n버프', 'buff_evasion'], ['명중\n버프', 'buff_accuracy'],
+    ['사속\n버프', 'buff_rof'], ['치명\n버프', 'buff_critical'], 
+    ['스킬\n쿨감', 'buff_ctime'], ['장갑\n버프', 'buff_armor'],
     ['스킬명', 'skill_name'], ['스킬분류', 'skill_type'],
     ['초기쿨', 'skill_ctime_init'], ['쿨타임', 'skill_ctime'],
-    ['지속시간', 'skill_duration'], ['조준시간', 'skill_aimtime'],
+    ['지속\n시간', 'skill_duration'], ['조준\n시간', 'skill_aimtime'],
     ['범위', 'skill_range'], ['배율', 'skill_ratio'],
-    ['스킬대상', 'skill_target'], ['화력버프', 'skill_damage'], 
-    ['회피버프', 'skill_evasion'], ['명중버프', 'skill_accuracy'], 
-    ['사속버프', 'skill_rof'], ['치명버프', 'skill_critical'], 
-    ['이속버프', 'skill_move_speed'], ['장탄버프', 'skill_clip_size'],
-    ['장전단축', 'skill_reload'], ['장갑버프', 'skill_armor'], 
+    ['스킬대상', 'skill_target'], ['화력\n버프', 'skill_damage'], 
+    ['회피\n버프', 'skill_evasion'], ['명중\n버프', 'skill_accuracy'], 
+    ['사속\n버프', 'skill_rof'], ['치명\n버프', 'skill_critical'], 
+    ['이속\n버프', 'skill_move_speed'], ['장탄\n버프', 'skill_clip_size'],
+    ['장전\n단축', 'skill_reload'], ['장갑\n버프', 'skill_armor'], 
     ['스킬설명', 'skill_description']
   ];
 
@@ -123,14 +123,17 @@ export class ResultView {
     tr.appendChild(this.createTD(this.skipZero(dollinfo.skill_clip_size)));
     tr.appendChild(this.createTD(this.percent(dollinfo.skill_reload)));
     tr.appendChild(this.createTD(this.percent(dollinfo.skill_armor)));
-    tr.appendChild(this.createTD(dollinfo.skill_description));
+    tr.appendChild(this.createTD(dollinfo.skill_description, {'width': '300px', 'textAlign': 'left'}));
  
     return tr;
   }
 
-  private createTD(innerText: string): HTMLTableDataCellElement {
+  private createTD(innerText: string, style: any = {}): HTMLTableDataCellElement {
     let td = document.createElement('td');
     td.innerText = innerText;
+    for (const attr in style) {
+      (td as any).style[attr] = style[attr];
+    }
     return td;
   }
 
