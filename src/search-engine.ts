@@ -1,8 +1,53 @@
+import { key } from 'localforage';
 import { DollInfo } from './doll_info';
 import { Util } from './util';
 
 abstract class SearchEngine {
   public abstract search(keywords: string[], dollinfos: DollInfo[]): DollInfo[];
+
+  /**
+   * 키워드를 전처리하여 반환한다.
+   * @param keywords 키워드들
+   */
+  protected preprocess(keywords: string[]): string[] {
+    return keywords.map((keyword) => {
+      // 대소문자 구별없이 대문자로 전부 변환
+      keyword = keyword.toUpperCase();
+
+      // 유사어 대응(이속 -> 이동속도)
+      if (Util.isIn(keyword, ['공격력']))
+        keyword = '화력';
+      
+      else if (Util.isIn(keyword, ['공속', '공격속도']))
+        keyword = '사속';
+      
+      else if (Util.isIn(keyword, ['치명타', '치명률', '치명타율', '크리티컬']))
+        keyword = '치명';
+
+      else if (Util.isIn(keyword, ['이속']))
+        keyword = '이동속도';
+      
+      else if (Util.isIn(keyword, ['돌격소총', '에이알']))
+        keyword = 'AR';
+      
+      else if (Util.isIn(keyword, ['기관단총', '슴지']))
+        keyword = 'SMG';
+      
+      else if (Util.isIn(keyword, ['소총', '라이플', '랖']))
+        keyword = 'RF';
+      
+      else if (Util.isIn(keyword, ['권총', '딱총', '딱']))
+        keyword = 'HG';
+
+      else if (Util.isIn(keyword, ['기관총', '망가', '망']))
+        keyword = 'MG';
+      
+      else if (Util.isIn(keyword, ['산탄총', '샷건', '샷']))
+        keyword = 'SG';
+      
+      return keyword;
+    });
+  }
 };
 
 export class BuffSearchEngine extends SearchEngine {
@@ -13,6 +58,7 @@ export class BuffSearchEngine extends SearchEngine {
   */
   public search(keywords: string[], dollinfos: DollInfo[]): DollInfo[] {
     // keyword 분석
+    keywords = this.preprocess(keywords);
     const type_words = ['AR', 'SMG', 'RF', 'HG', 'MG', 'SG', 'ALL']; // 대상 병종에 대한 키워드
     const stat_words = ['화력', '회피', '명중', '사속', '치명', '스킬쿨감', '장갑'];
     const type_keys = keywords.filter(keyword => Util.isIn(keyword, type_words));
@@ -59,6 +105,7 @@ export class SkillSearchEngine extends SearchEngine {
   */
   public search(keywords: string[], dollinfos: DollInfo[]): DollInfo[] {
     // 키워드 분석
+    keywords = this.preprocess(keywords);
     const type_words = ['AR', 'SMG', 'RF', 'HG', 'MG', 'SG', 'ALL'];
     const type_keys = keywords.filter(keyword => Util.isIn(keyword, type_words));
     const stat_words = ['화력', '회피', '명중', '사속', '치명', '이동속도', '장탄', '장전단축', '장갑'];
