@@ -23,17 +23,19 @@ parse('/data.csv', {
 const RESULT_CONTROLLER = new ResultController();
 const RESULT_VIEW = new ResultView();
 
-// 검색창 반응
-document.getElementById('search-keyword').onkeyup = (evt: KeyboardEvent) => {
+const SEARCH_DOM: HTMLInputElement = document.getElementById('search-keyword') as HTMLInputElement;
+const OPTION_DOM: HTMLSelectElement = document.getElementById('search-mode') as HTMLSelectElement;
+
+function search() {
   // 키워드 분해
-  let keywords_text = (evt.target as HTMLInputElement).value;
+  let keywords_text = SEARCH_DOM.value;
   keywords_text = keywords_text ? keywords_text : '';
 
   let keywords = keywords_text.split(' ');
   keywords = keywords.filter(keyword => keyword);
 
   // 진형버프 검색모드
-  if ((document.getElementById('search-mode') as HTMLSelectElement).value === '0') { 
+  if (OPTION_DOM.value === '0') { 
     const buffSE = new BuffSearchEngine();
     RESULT_CONTROLLER.setResult(buffSE.search(keywords, DOLL_INFOS));
   }
@@ -43,4 +45,14 @@ document.getElementById('search-keyword').onkeyup = (evt: KeyboardEvent) => {
     RESULT_CONTROLLER.setResult(skillSE.search(keywords, DOLL_INFOS));
   }
   RESULT_VIEW.render(RESULT_CONTROLLER);
+}
+
+// 검색창 반응
+let timer = setTimeout(search, 500);
+SEARCH_DOM.onkeydown = (evt: KeyboardEvent) => {
+  clearTimeout(timer);
+  timer = setTimeout(search, 500);
 };
+
+// 모드 선택 시 반응
+OPTION_DOM.onchange = search;
