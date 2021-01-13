@@ -26,6 +26,9 @@ const RESULT_VIEW = new ResultView();
 const SEARCH_DOM: HTMLInputElement = document.getElementById('search-keyword') as HTMLInputElement;
 const OPTION_DOM: HTMLSelectElement = document.getElementById('search-mode') as HTMLSelectElement;
 
+const buffSE = new BuffSearchEngine();
+const skillSE = new SkillSearchEngine();
+
 function search() {
   // 키워드 분해
   let keywords_text = SEARCH_DOM.value;
@@ -34,16 +37,11 @@ function search() {
   let keywords = keywords_text.split(' ');
   keywords = keywords.filter(keyword => keyword);
 
-  // 진형버프 검색모드
-  if (OPTION_DOM.value === '0') { 
-    const buffSE = new BuffSearchEngine();
+  if (OPTION_DOM.value === '0')
     RESULT_CONTROLLER.setResult(buffSE.search(keywords, DOLL_INFOS));
-  }
-  // 스킬 검색모드
-  else {
-    const skillSE = new SkillSearchEngine();
+  else
     RESULT_CONTROLLER.setResult(skillSE.search(keywords, DOLL_INFOS));
-  }
+
   RESULT_VIEW.render(RESULT_CONTROLLER);
 }
 
